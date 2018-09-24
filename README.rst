@@ -1,5 +1,38 @@
-Open edX Devstack |Build Status|
-================================
+NAU Open edX Devstack Documentation
+===================================
+
+Steps to create the devstack
+----------------------------
+
+.. code:: sh
+
+  git clone -b nau git@gitlab.fccn.pt:nau/devstack.git  # **
+  virtualenv venv
+  source venv/bin/activate
+  cd devstack
+  make requirements
+  make pull
+  make dev.clone  # Can be done simultaneously to `make pull`. # **
+  make dev.provision
+  make dev.up
+
+** Requires that a valid ssh-key for the https://gitlab.fccn.pt/nau/ projects is loaded on the agent
+
+Steps to destroy the devstack
+-----------------------------
+
+Once in the virtual enviroment run
+
+.. code:: sh
+
+  cd devstack
+  make destroy
+  cd ..
+  rm -rf *  # Might need sudo. Be careful
+
+
+Open edX Devstack Documentation
+===============================
 
 Get up and running quickly with Open edX services.
 
