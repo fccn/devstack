@@ -17,6 +17,9 @@ GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
 
+export OPENEDX_RELEASE="hawthorn.master"
+
+
 # Bring the databases online.
 docker-compose up -d mysql mongo
 

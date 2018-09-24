@@ -3,6 +3,9 @@
 set -e
 set -o pipefail
 
+
+
+export OPENEDX_RELEASE="hawthorn.master"
 # Script for Git repos housing edX services. These repos are mounted as
 # data volumes into their corresponding Docker containers to facilitate development.
 # Repos are cloned to/removed from the directory above the one housing this file.
@@ -18,15 +21,25 @@ else
 fi
 
 repos=(
-    "https://github.com/edx/course-discovery.git"
-    "https://github.com/edx/credentials.git"
-    "https://github.com/edx/cs_comments_service.git"
-    "https://github.com/edx/ecommerce.git"
-    "https://github.com/edx/edx-e2e-tests.git"
-    "https://github.com/edx/edx-notes-api.git"
-    "https://github.com/edx/edx-platform.git"
-    "https://github.com/edx/xqueue.git"
-    "https://github.com/edx/edx-analytics-pipeline.git"
+    "https://github.com/edx/course-discovery.git -b open-release/$OPENEDX_RELEASE"
+    "https://github.com/edx/credentials.git -b open-release/$OPENEDX_RELEASE"
+    "https://github.com/edx/cs_comments_service.git -b open-release/$OPENEDX_RELEASE"
+    "https://github.com/edx/ecommerce.git -b open-release/$OPENEDX_RELEASE"
+    "https://github.com/edx/edx-e2e-tests.git -b open-release/$OPENEDX_RELEASE"
+    "https://github.com/edx/edx-notes-api.git -b open-release/$OPENEDX_RELEASE"
+    "git@gitlab.fccn.pt:nau/edx-platform.git -b open-release/hawthorn.nau"
+    "https://github.com/edx/xqueue.git -b open-release/$OPENEDX_RELEASE"
+    "https://github.com/edx/edx-analytics-pipeline.git -b open-release/$OPENEDX_RELEASE"
+    "git@gitlab.fccn.pt:nau/nau-themes.git -b master"
+)
+
+volumes=(
+    "edxapp_studio_assets"
+    "edxapp_lms_assets"
+    "discovery_assets"
+    "mysql_data"
+    "mongo_data"
+    "elasticsearch_data"
 )
 
 private_repos=(
@@ -34,7 +47,7 @@ private_repos=(
     "https://github.com/edx/edx-themes.git"
 )
 
-name_pattern=".*edx/(.*).git"
+name_pattern=".*/(.*).git"
 
 _checkout ()
 {
@@ -68,6 +81,7 @@ checkout ()
     _checkout "${repos[@]}"
 }
 
+
 _clone ()
 {
     # for repo in ${repos[*]}
@@ -89,17 +103,29 @@ _clone ()
             else
                 git clone $repo
             fi
-            if [ -n "${OPENEDX_RELEASE}" ]; then
-                git checkout open-release/${OPENEDX_RELEASE}
-            fi
         fi
     done
     cd - &> /dev/null
 }
 
+_create_volumes ()
+{
+    if [[ ! -d "${DEVSTACK_WORKSPACE}/volumes" ]]; then
+        mkdir "${DEVSTACK_WORKSPACE}/volumes";
+    fi
+    cd "${DEVSTACK_WORKSPACE}/volumes"
+    for vol in "${volumes[@]}"
+    do
+        if [[ ! -d "${DEVSTACK_WORKSPACE}/volumes/${vol}" ]]; then
+            mkdir "${DEVSTACK_WORKSPACE}/volumes/${vol}";
+        fi
+    done
+}
+
 clone ()
 {
     _clone "${repos[@]}"
+     _create_volumes
 }
 
 clone_private ()
