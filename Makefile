@@ -15,6 +15,7 @@ COMPOSE_PROJECT_NAME=devstack
 
 export DEVSTACK_WORKSPACE
 export COMPOSE_PROJECT_NAME
+export OPENEDX_RELEASE=hawthorn.master
 
 include *.mk
 
