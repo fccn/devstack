@@ -189,7 +189,7 @@ services:
       BOK_CHOY_CMS_PORT: 18131
       EDXAPP_TEST_MONGO_HOST: edx.devstack.mongo
       NO_PYTHON_UNINSTALL: 1
-    image: edxops/edxapp:${OPENEDX_RELEASE:-latest}
+    image: ednxops/edxapp:nau.hawthorn
     ports:
       - "18010:18010"
       - "19877:19877" # JS test debugging
