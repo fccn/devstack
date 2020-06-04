@@ -1,6 +1,6 @@
-lms-static-sass:
+lms-static-sass: ## Compile sass and collect static files for LMS
 	docker exec -t edx.devstack.lms bash -c 'source /edx/app/edxapp/edxapp_env && export NO_PREREQ_INSTALL=True && cd /edx/app/edxapp/edx-platform/ && paver update_assets lms --skip-collect'
-studio-static-sass:
+studio-static-sass: ## Compile sass and collect static files for Studio
 	docker exec -t edx.devstack.studio bash -c 'source /edx/app/edxapp/edxapp_env && export NO_PREREQ_INSTALL=True && cd /edx/app/edxapp/edx-platform/ && paver update_assets cms --skip-collect'
 
 
