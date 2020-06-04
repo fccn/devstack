@@ -6,12 +6,15 @@ services:
     container_name: edx.devstack.lms_watcher
     environment:
       BOK_CHOY_HOSTNAME: edx.devstack.lms_watcher
-      ASSET_WATCHER_TIMEOUT: 12
+      # Add the nau theme so it also watches the theme changes
+      ASSET_WATCHER_TIMEOUT: "12 --theme-dirs /edx/app/edxapp/edx-platform/themes --themes nau-basic"
     image: edxops/edxapp:${OPENEDX_RELEASE:-latest}
     volumes:
       - ${DEVSTACK_WORKSPACE}/edx-platform:/edx/app/edxapp/edx-platform:cached
       - edxapp_lms_assets:/edx/var/edxapp/staticfiles/
       - ${DEVSTACK_WORKSPACE}/src:/edx/src:cached
+      - ${DEVSTACK_WORKSPACE}/nau-themes/edx-platform/nau-basic:/edx/app/edxapp/edx-platform/themes/nau-basic:cached
+      - edxapp_node_modules:/edx/app/edxapp/edx-platform/node_modules
 
   studio_watcher:
     command: bash -c 'cd /edx/app/edxapp/edx-platform && source ../edxapp_env && while true; do paver watch_assets --w=$$ASSET_WATCHER_TIMEOUT; sleep 2; done'
@@ -28,3 +31,4 @@ services:
 volumes:
   edxapp_lms_assets:
   edxapp_studio_assets:
+  edxapp_node_modules:
