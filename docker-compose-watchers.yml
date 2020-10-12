@@ -21,12 +21,14 @@ services:
     container_name: edx.devstack.studio_watcher
     environment:
       BOK_CHOY_HOSTNAME: edx.devstack.studio_watcher
-      ASSET_WATCHER_TIMEOUT: 12
+      ASSET_WATCHER_TIMEOUT: "12 --theme-dirs /edx/app/edxapp/edx-platform/themes --themes nau-basic"
     image: edxops/edxapp:${OPENEDX_RELEASE:-latest}
     volumes:
       - edxapp_studio_assets:/edx/var/edxapp/staticfiles/
       - ${DEVSTACK_WORKSPACE}/edx-platform:/edx/app/edxapp/edx-platform:cached
       - ${DEVSTACK_WORKSPACE}/src:/edx/src:cached
+      - ${DEVSTACK_WORKSPACE}/nau-themes/edx-platform/nau-basic:/edx/app/edxapp/edx-platform/themes/nau-basic:cached
+      - edxapp_node_modules:/edx/app/edxapp/edx-platform/node_modules
 
 volumes:
   edxapp_lms_assets:
