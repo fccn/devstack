@@ -151,6 +151,7 @@ services:
       # - "18031:18031"
     volumes:
       - ../volumes/edxapp_lms_assets:/edx/var/edxapp/staticfiles/
+      - ../nau_translations:/edx/src/nau_translations/
 
   edx_notes_api:
     command: bash -c 'source /edx/app/edx_notes_api/edx_notes_api_env && while true; do python /edx/app/edx_notes_api/edx_notes_api/manage.py runserver 0.0.0.0:18120 --settings notesserver.settings.devstack; sleep 2; done'
@@ -197,6 +198,7 @@ services:
       # - "18131:18131"
     volumes:
       - ../volumes/edxapp_studio_assets:/edx/var/edxapp/staticfiles/
+      - ../nau_translations:/edx/src/nau_translations/
 
   forum:
     command: bash -c 'source /edx/app/forum/ruby_env && source /edx/app/forum/devstack_forum_env && cd /edx/app/forum/cs_comments_service && bundle install && while true; do ruby app.rb -o 0.0.0.0 ; sleep 2; done'
