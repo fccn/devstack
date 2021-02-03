@@ -6,7 +6,7 @@ services:
     container_name: "edx.${COMPOSE_PROJECT_NAME:-devstack}.lms_watcher"
     environment:
       BOK_CHOY_HOSTNAME: edx.devstack.lms_watcher
-      ASSET_WATCHER_TIMEOUT: 12
+      ASSET_WATCHER_TIMEOUT: "12 --theme-dirs /edx/app/edx-themes/edx-platform --themes nau-basic"
     image: edxops/edxapp:${OPENEDX_RELEASE:-latest}
     networks:
       default:
@@ -17,14 +17,14 @@ services:
       - edxapp_lms_assets:/edx/var/edxapp/staticfiles/
       - edxapp_node_modules:/edx/app/edxapp/edx-platform/node_modules
       - ${DEVSTACK_WORKSPACE}/src:/edx/src:cached
-      - ${DEVSTACK_WORKSPACE}/edx-themes:/edx/app/edx-themes:cached
+      - ${DEVSTACK_WORKSPACE}/nau-themes:/edx/app/edx-themes:cached
 
   studio_watcher:
     command: bash -c 'cd /edx/app/edxapp/edx-platform && source ../edxapp_env && while true; do paver watch_assets --w=$$ASSET_WATCHER_TIMEOUT; sleep 2; done'
     container_name: "edx.${COMPOSE_PROJECT_NAME:-devstack}.studio_watcher"
     environment:
       BOK_CHOY_HOSTNAME: edx.devstack.studio_watcher
-      ASSET_WATCHER_TIMEOUT: 12
+      ASSET_WATCHER_TIMEOUT: "12 --theme-dirs /edx/app/edx-themes/edx-platform --themes nau-basic"
     image: edxops/edxapp:${OPENEDX_RELEASE:-latest}
     networks:
       default:
@@ -35,7 +35,7 @@ services:
       - ${DEVSTACK_WORKSPACE}/edx-platform:/edx/app/edxapp/edx-platform:cached
       - edxapp_node_modules:/edx/app/edxapp/edx-platform/node_modules
       - ${DEVSTACK_WORKSPACE}/src:/edx/src:cached
-      - ${DEVSTACK_WORKSPACE}/edx-themes:/edx/app/edx-themes:cached
+      - ${DEVSTACK_WORKSPACE}/nau-themes:/edx/app/edx-themes:cached
 
 volumes:
   edxapp_lms_assets:
