@@ -1356,3 +1356,13 @@ GitHub issue which explains the `current status of implementing delegated consis
 .. _Running analytics acceptance tests in docker: http://edx-analytics-pipeline-reference.readthedocs.io/en/latest/running_acceptance_tests_in_docker.html
 .. _Troubleshooting docker analyticstack: http://edx-analytics-pipeline-reference.readthedocs.io/en/latest/troubleshooting_docker_analyticstack.html
 .. _Community: https://open.edx.org/community/connect/
+
+
+NAU notes
+-----------
+
+.. code:: sh
+
+    sysctl -w fs.inotify.max_user_watches=30000
+
+
