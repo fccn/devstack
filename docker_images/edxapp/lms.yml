@@ -127,8 +127,8 @@ CELERY_QUEUES:
 - edx.lms.core.high_mem
 CELERY_TIMEZONE: UTC
 CERTIFICATE_TEMPLATE_LANGUAGES:
+    pt: Português
     en: English
-    es: Español
 CERT_QUEUE: certificates
 CMS_BASE: edx.devstack.studio:18010
 CODE_JAIL:
@@ -144,7 +144,9 @@ COMMENTS_SERVICE_KEY: password
 COMMENTS_SERVICE_URL: http://localhost:18080
 COMPREHENSIVE_THEME_DIRS:
 - '/edx/app/edx-themes/edx-platform/'
-COMPREHENSIVE_THEME_LOCALE_PATHS: []
+COMPREHENSIVE_THEME_LOCALE_PATHS:
+- '/edx/app/edx-themes/edx-platform/nau-basic/conf/locale'
+- '/edx/src/nau_translations/conf/locale'
 CONTACT_EMAIL: info@example.com
 CONTACT_MAILING_ADDRESS: SET-ME-PLEASE
 CONTENTSTORE:
@@ -312,7 +314,7 @@ FEATURES:
     ENABLE_VIDEO_UPLOAD_PIPELINE: false
     PREVIEW_LMS_BASE: preview.localhost:18000
     SHOW_FOOTER_LANGUAGE_SELECTOR: false
-    SHOW_HEADER_LANGUAGE_SELECTOR: false
+    SHOW_HEADER_LANGUAGE_SELECTOR: true
 FEEDBACK_SUBMISSION_EMAIL: ''
 FERNET_KEYS:
 - DUMMY KEY CHANGE BEFORE GOING TO PRODUCTION
@@ -361,7 +363,7 @@ JWT_AUTH:
 JWT_EXPIRATION: 30
 JWT_ISSUER: http://edx.devstack.lms:18000/oauth2
 JWT_PRIVATE_SIGNING_KEY: null
-LANGUAGE_CODE: en
+LANGUAGE_CODE: pt-PT
 LANGUAGE_COOKIE: openedx-language-preference
 LEARNER_PORTAL_URL_ROOT: https://learner-portal-edx.devstack.lms:18000
 LEARNING_MICROFRONTEND_URL: null
