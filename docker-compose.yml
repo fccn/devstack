@@ -59,6 +59,8 @@ services:
       default:
         aliases:
           - edx.devstack.devpi
+    environment:
+      PIP_DEFAULT_TIMEOUT: 100
     ports:
       - "3141:3141"
     volumes:
@@ -428,6 +430,7 @@ services:
       EDXAPP_TEST_MONGO_HOST: edx.devstack.mongo
       NO_PYTHON_UNINSTALL: 1
       DJANGO_WATCHMAN_TIMEOUT: 30
+      PIP_DEFAULT_TIMEOUT: 100
     image: edxops/edxapp:${OPENEDX_RELEASE:-latest}
     networks:
       default:
@@ -815,3 +818,11 @@ volumes:
   elasticsearch710_data:
   mongo_data:
   mysql57_data:
+  devpi_data:
+
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1400
+
