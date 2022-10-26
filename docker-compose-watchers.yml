@@ -8,6 +8,7 @@ services:
       BOK_CHOY_HOSTNAME: edx.devstack.lms_watcher
       ASSET_WATCHER_TIMEOUT: 12
     image: edxops/edxapp:${OPENEDX_RELEASE:-latest}
+    mem_limit: 4G
     volumes:
       - ${DEVSTACK_WORKSPACE}/edx-platform:/edx/app/edxapp/edx-platform
       - edxapp_lms_assets:/edx/var/edxapp/staticfiles/
@@ -26,6 +27,7 @@ services:
       BOK_CHOY_HOSTNAME: edx.devstack.studio_watcher
       ASSET_WATCHER_TIMEOUT: 12
     image: edxops/edxapp:${OPENEDX_RELEASE:-latest}
+    mem_limit: 4G
     volumes:
       - edxapp_studio_assets:/edx/var/edxapp/staticfiles/
       - ${DEVSTACK_WORKSPACE}/edx-platform:/edx/app/edxapp/edx-platform
