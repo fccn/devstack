@@ -4,7 +4,7 @@ version: "2.1"
 
 services:
   microfrontend:
-    command: bash -c 'npm install; while true; do npm start; sleep 2; done'
+    command: bash -c 'npm install --legacy-peer-deps; while true; do npm start; sleep 2; done'
     stdin_open: true
     tty: true
     image: node:16
